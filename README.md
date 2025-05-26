@@ -1,5 +1,3 @@
-Data Analytics Project.
-<>
-DC: Data Cleaning
-<>
-EDA: Exploratory Data Analysis
+Data Analytics Project.  
+DC: Data Cleaning  
+EDA: Exploratory Data Analysis  
