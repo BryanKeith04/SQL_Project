@@ -33,7 +33,7 @@ begin
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
     
 	insert into us_household_income_Cleaned
-    select *, current_timestamp
+	select *, current_timestamp
 	from data_cleaning_automation.us_household_income;
     
 	delete from us_household_income_Cleaned 
@@ -43,7 +43,7 @@ begin
 		from (select row_id, id, row_number() over(partition by id, `TimeStamp` order by id, `TimeStamp`) as row_num
                 from us_household_income_Cleaned) duplicates
 		where row_num > 1
-		);
+	);
 
 	update us_household_income_Cleaned
 	set State_Name = 'Georgia'
@@ -88,7 +88,7 @@ create event run_data_cleaning
 delimiter $$
 create trigger Transfer_clean_data
 	after insert on data_cleaning_automation.us_household_income
-    for each row
+	for each row
 begin
 	call Copy_and_Clean_Data();
 end $$
@@ -105,7 +105,7 @@ values
 
 select row_id, id, row_num, `timestamp`
 from (select row_id, id, row_number() over(partition by id order by id) as row_num, `timestamp`
-		from us_household_income_Cleaned) duplicates
+	from us_household_income_Cleaned) duplicates
 where row_num > 1;
 
 select count(row_id)
